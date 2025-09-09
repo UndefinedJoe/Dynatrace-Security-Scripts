@@ -39,6 +39,7 @@ Linux/macOS
 
 # Set environment variables for current session
 export DT_API_TOKEN='your-api-token-here'
+
 export DT_ENV_URL='https://<tenantID>.live.dynatrace.com'
 
 # Run the script
