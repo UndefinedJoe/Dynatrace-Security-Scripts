@@ -16,7 +16,7 @@ if not DT_API_TOKEN:
 
 if not DT_ENV_URL:
     print("Error: DT_ENV_URL environment variable is not set")
-    print("Please set it using: export DT_ENV_URL='https://your-environment.dynatracelabs.com'")
+    print("Please set it using: export DT_ENV_URL='https://your-environment.live.dynatrace.com'")
     sys.exit(1)
 
 HEADERS = {
