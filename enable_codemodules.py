@@ -3,8 +3,6 @@ import json
 import os
 import sys
 
-
-
 DT_API_TOKEN = os.environ.get('DT_API_TOKEN')
 DT_ENV_URL = os.environ.get('DT_ENV_URL')
 
@@ -48,7 +46,8 @@ def get_hosts():
         # Check for next page
         next_key = data.get('nextPageKey')
         if next_key:
-            params['nextPageKey'] = next_key
+            # Clear other params when using nextPageKey
+            params = {'nextPageKey': next_key}
         else:
             break
     
@@ -66,16 +65,18 @@ def enable_code_module_injection(host_id):
     }]
     response = requests.post(url, headers=HEADERS, data=json.dumps(payload))
     if response.status_code == 200 or response.status_code == 201:
-        print(f' Enabled CodeModule injection on host: {host_id}')
+        print(f'Enabled CodeModule injection on host: {host_id}')
     else:
-        print(f' Failed to update host {host_id}: {response.text}')
+        print(f'Failed to update host {host_id}: {response.text}')
 
 def main():
     print(f"Using Dynatrace environment: {DT_ENV_URL}")
     print(f"API Token: {'*' * 10}{DT_API_TOKEN[-4:] if len(DT_API_TOKEN) > 4 else '****'}")
     print("-" * 50)
+    
     hosts = get_hosts()
-    print(f' Found {len(hosts)} hosts in DISCOVERY mode.')
+    print(f'Found {len(hosts)} hosts in DISCOVERY mode.')
+    
     for host_id in hosts:
         enable_code_module_injection(host_id)
 
